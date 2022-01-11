@@ -3,6 +3,7 @@ class OrdersController < ApplicationController
   def show
     @order = Order.find(params[:id])
     @line_items = LineItem.where("order_id": params[:id])
+    @usr = User.find(session[:user_id])
   end
 
   def create
