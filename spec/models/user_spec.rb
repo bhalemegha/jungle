@@ -62,7 +62,7 @@ RSpec.describe User, type: :model do
       end
 
       it "should authenticate user" do
-        @user = User.new(name: "Sam", last_name: "Brad", email: "sam.brad@gmaIl.com", password: "12345", password_confirmation: "12345")
+        @user = User.new(name: "Sam", last_name: "Brad", email: "Sam.brad@gmaIl.com", password: "12345", password_confirmation: "12345")
         @user.save!
         expect(User.authenticate_with_credentials("sam.brad@gmail.com", "12345")).to be_present
       end 
