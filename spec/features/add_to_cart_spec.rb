@@ -1,10 +1,12 @@
 require 'rails_helper'
 
-RSpec.feature "Visitors sees details of product", type: :feature, js: true do
+RSpec.feature "Visitor adds items to cart", type: :feature, js: true do
 
   # SETUP
   before :each do
     @category = Category.create! name: 'Apparel'
+
+    10.times do |n|
       @category.products.create!(
         name:  Faker::Hipster.sentence(3),
         description: Faker::Hipster.paragraph(4),
@@ -12,15 +14,15 @@ RSpec.feature "Visitors sees details of product", type: :feature, js: true do
         quantity: 10,
         price: 64.99
       )
+    end
   end
 
-  scenario "Use can see details of product if details link clicked" do
+  scenario "Add cart items" do
     # ACT
     visit root_path
-    find(:'css', ".actions").hover
-    page.find_link('Details »').click
-    # VERIFY
-    expect(page).to have_link @category.name
+    find_button('Add', match: :first).click
     save_screenshot
+    # VERIFY
+    expect(page).to have_link 'My Cart (1)'
   end
 end
